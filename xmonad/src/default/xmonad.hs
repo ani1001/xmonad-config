@@ -281,9 +281,11 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
-    spawnOnce "picom &"
+    spawnOnce "picom -b &"
     spawnOnce "lxpolkit &"
+    spawnOnce "mpd &"
     spawnOnce "urxvtd -q -o -f &"
+    spawnOnce "emacs --daemon &"
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
