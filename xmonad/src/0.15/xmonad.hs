@@ -3,8 +3,8 @@
 
 -- Base
 import XMonad hiding ( (|||) )
-import System.IO (hPutStrLn)
-import System.Exit (exitSuccess)
+import System.IO ( hPutStrLn )
+import System.Exit ( exitSuccess )
 import qualified XMonad.StackSet as W
 
 -- Data
@@ -37,8 +37,8 @@ import XMonad.Layout.ResizableTile
 
 -- Utilities
 import XMonad.Util.Cursor
-import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.EZConfig ( additionalKeysP )
+import XMonad.Util.Run ( spawnPipe )
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
@@ -56,7 +56,7 @@ myModMask = mod4Mask
 
 -- Sets default terminal
 myTerminal :: String
-myTerminal = "urxvtc"
+myTerminal = "st"
 
 -- Color of focused border
 myFocusedBorderColor :: String

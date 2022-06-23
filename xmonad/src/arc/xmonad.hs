@@ -13,7 +13,7 @@ import XMonad.Actions.WindowGo
 import qualified XMonad.Actions.FlexibleResize as Flex
 
 -- data
-import Control.Monad (liftM2)
+import Control.Monad ( liftM2 )
 import Data.Monoid
 import qualified Data.Map as M
 

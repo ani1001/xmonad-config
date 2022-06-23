@@ -27,7 +27,7 @@ import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myModMask            = mod4Mask
-myTerminal           = "urxvtc"
+myTerminal           = "st"
 myWorkspaces         = ["1:web","2:irc","3:mail","4:dev","5:comm","6:tmp","7:dvi","8","9"]
 myFocusedBorderColor = "#5e81ac"      -- Color of focused border
 myNormalBorderColor  = "#a3be8c"      -- Color of inactive border
