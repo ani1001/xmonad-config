@@ -6,12 +6,12 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageHelpers(doFullFloat, doCenterFloat, isFullscreen, isDialog)
+import XMonad.Hooks.ManageHelpers( doFullFloat, doCenterFloat, isFullscreen, isDialog )
 import XMonad.Config.Desktop
 import XMonad.Config.Azerty
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run( spawnPipe )
 import XMonad.Actions.SpawnOn
-import XMonad.Util.EZConfig (additionalKeys, additionalMouseBindings)
+import XMonad.Util.EZConfig ( additionalKeys, additionalMouseBindings )
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.UrgencyHook
 import qualified Codec.Binary.UTF8.String as UTF8
@@ -19,16 +19,16 @@ import qualified Codec.Binary.UTF8.String as UTF8
 import XMonad.Layout.Spacing
 import XMonad.Layout.Gaps
 import XMonad.Layout.ResizableTile
---import XMonad.Layout.NoBorders
-import XMonad.Layout.Fullscreen (fullscreenFull)
-import XMonad.Layout.Cross(simpleCross)
-import XMonad.Layout.Spiral(spiral)
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Fullscreen ( fullscreenFull )
+import XMonad.Layout.Cross( simpleCross )
+import XMonad.Layout.Spiral( spiral )
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.IndependentScreens
 
-import XMonad.Layout.CenteredMaster(centerMaster)
+import XMonad.Layout.CenteredMaster( centerMaster )
 
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
@@ -49,18 +49,18 @@ fore     = "#DEE3E0"
 back     = "#282c34"
 winType  = "#c678dd"
 
---mod4Mask= super key
---mod1Mask= alt key
---controlMask= ctrl key
---shiftMask= shift key
+-- mod4Mask= super key
+-- mod1Mask= alt key
+-- controlMask= ctrl key
+-- shiftMask= shift key
 
 myModMask = mod4Mask
 encodeCChar = map fromIntegral . B.unpack
 myFocusFollowsMouse = True
 myBorderWidth = 2
 myWorkspaces    = ["\61612","\61899","\61947","\61635","\61502","\61501","\61705","\61564","\62150","\61872"]
---myWorkspaces    = ["1","2","3","4","5","6","7","8","9","10"]
---myWorkspaces    = ["I","II","III","IV","V","VI","VII","VIII","IX","X"]
+-- myWorkspaces    = ["1","2","3","4","5","6","7","8","9","10"]
+-- myWorkspaces    = ["I","II","III","IV","V","VI","VII","VIII","IX","X"]
 
 myBaseConfig = desktopConfig
 
@@ -132,12 +132,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_h), spawn $ "urxvtc 'htop task manager' -e htop" )
   , ((modMask, xK_m), spawn $ "pragha" )
   , ((modMask, xK_r), spawn $ "rofi-theme-selector" )
-  , ((modMask, xK_t), spawn $ "st" )
+  , ((modMask, xK_t), spawn $ "urxvtc" )
   , ((modMask, xK_v), spawn $ "pavucontrol" )
   , ((modMask, xK_w), kill )
   , ((modMask, xK_y), spawn $ "polybar-msg cmd toggle" )
   , ((modMask, xK_Escape), spawn $ "xkill" )
-  , ((modMask, xK_Return), spawn $ "urxvtc" )
+  , ((modMask, xK_Return), spawn $ "st" )
   , ((modMask, xK_F1), spawn $ "brave-browser" )
   , ((modMask, xK_F2), spawn $ "emacs" )
   , ((modMask, xK_F3), spawn $ "inkscape" )
@@ -208,11 +208,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- , ((mod1Mask .|. shiftMask , xK_t ), spawn $ "variety -t && wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&")
   -- , ((mod1Mask .|. shiftMask , xK_u ), spawn $ "wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&")
 
-  --CONTROL + SHIFT KEYS
+  -- CONTROL + SHIFT KEYS
 
   , ((controlMask .|. shiftMask , xK_Escape ), spawn $ "xfce4-taskmanager")
 
-  --SCREENSHOTS
+  -- SCREENSHOTS
 
   -- , ((0, xK_Print), spawn $ "scrot 'Linux-%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f $$(xdg-user-dir PICTURES)'")
   -- , ((controlMask, xK_Print), spawn $ "xfce4-screenshooter" )
@@ -260,19 +260,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Cycle through the available layout algorithms.
   , ((modMask, xK_space), sendMessage NextLayout)
 
-  --Focus selected desktop
+  -- Focus selected desktop
   , ((mod1Mask, xK_Tab), nextWS)
 
-  --Focus selected desktop
+  -- Focus selected desktop
   , ((modMask, xK_Tab), nextWS)
 
-  --Focus selected desktop
+  -- Focus selected desktop
   , ((controlMask .|. mod1Mask , xK_Left ), prevWS)
 
-  --Focus selected desktop
+  -- Focus selected desktop
   , ((controlMask .|. mod1Mask , xK_Right ), nextWS)
 
-  --  Reset the layouts on the current workspace to default.
+  -- Reset the layouts on the current workspace to default.
   , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
 
   -- Move focus to the next window.
@@ -318,15 +318,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
 
-  --Keyboard layouts
-  --qwerty users use this line
+  -- Keyboard layouts
+  -- qwerty users use this line
    | (i, k) <- zip (XMonad.workspaces conf) [xK_1,xK_2,xK_3,xK_4,xK_5,xK_6,xK_7,xK_8,xK_9,xK_0]
-
-  --French Azerty users use this line
-  -- | (i, k) <- zip (XMonad.workspaces conf) [xK_ampersand, xK_eacute, xK_quotedbl, xK_apostrophe, xK_parenleft, xK_minus, xK_egrave, xK_underscore, xK_ccedilla , xK_agrave]
-
-  --Belgian Azerty users use this line
-  --   | (i, k) <- zip (XMonad.workspaces conf) [xK_ampersand, xK_eacute, xK_quotedbl, xK_apostrophe, xK_parenleft, xK_section, xK_egrave, xK_exclam, xK_ccedilla, xK_agrave]
 
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)
       , (\i -> W.greedyView i . W.shift i, shiftMask)]]
@@ -348,26 +342,24 @@ main = do
     -- Request access to the DBus name
     D.requestName dbus (D.busName_ "org.xmonad.Log")
         [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
-
+        
     xmonad . ewmh $
-  --Keyboard layouts
-  --qwerty users use this line
+  
+  -- Keyboard layouts
+  -- qwerty users use this line
+            
             myBaseConfig
-  --French Azerty users use this line
-            --myBaseConfig { keys = azertyKeys <+> keys azertyConfig }
-  --Belgian Azerty users use this line
-            --myBaseConfig { keys = belgianKeys <+> keys belgianConfig }
 
-                {startupHook = myStartupHook
-, layoutHook = gaps [(U,35), (D,5), (R,5), (L,5)] $ myLayout ||| layoutHook myBaseConfig
-, manageHook = manageSpawn <+> myManageHook <+> manageHook myBaseConfig
-, modMask = myModMask
-, borderWidth = myBorderWidth
-, handleEventHook    = handleEventHook myBaseConfig <+> fullscreenEventHook
-, focusFollowsMouse = myFocusFollowsMouse
-, workspaces = myWorkspaces
-, focusedBorderColor = focdBord
-, normalBorderColor = normBord
-, keys = myKeys
-, mouseBindings = myMouseBindings
+                { startupHook = myStartupHook
+                , layoutHook = gaps [(U,35), (D,5), (R,5), (L,5)] $ myLayout ||| layoutHook myBaseConfig
+                , manageHook = manageSpawn <+> myManageHook <+> manageHook myBaseConfig
+                , modMask = myModMask
+                , borderWidth = myBorderWidth
+                , handleEventHook    = handleEventHook myBaseConfig <+> fullscreenEventHook
+                , focusFollowsMouse = myFocusFollowsMouse
+                , workspaces = myWorkspaces
+                , focusedBorderColor = focdBord
+                , normalBorderColor = normBord
+                , keys = myKeys
+                , mouseBindings = myMouseBindings
 }
