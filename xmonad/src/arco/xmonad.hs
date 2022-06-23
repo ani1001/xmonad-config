@@ -8,7 +8,6 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageHelpers ( doFullFloat, doCenterFloat, isFullscreen, isDialog )
 import XMonad.Config.Desktop
-import XMonad.Config.Azerty
 import XMonad.Util.Run ( spawnPipe )
 import XMonad.Actions.SpawnOn
 import XMonad.Util.EZConfig ( additionalKeys, additionalMouseBindings )
