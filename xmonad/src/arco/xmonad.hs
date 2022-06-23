@@ -6,10 +6,10 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageHelpers( doFullFloat, doCenterFloat, isFullscreen, isDialog )
+import XMonad.Hooks.ManageHelpers ( doFullFloat, doCenterFloat, isFullscreen, isDialog )
 import XMonad.Config.Desktop
 import XMonad.Config.Azerty
-import XMonad.Util.Run( spawnPipe )
+import XMonad.Util.Run ( spawnPipe )
 import XMonad.Actions.SpawnOn
 import XMonad.Util.EZConfig ( additionalKeys, additionalMouseBindings )
 import XMonad.Actions.CycleWS
@@ -21,20 +21,20 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Fullscreen ( fullscreenFull )
-import XMonad.Layout.Cross( simpleCross )
-import XMonad.Layout.Spiral( spiral )
+import XMonad.Layout.Cross ( simpleCross )
+import XMonad.Layout.Spiral ( spiral )
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.IndependentScreens
 
-import XMonad.Layout.CenteredMaster( centerMaster )
+import XMonad.Layout.CenteredMaster ( centerMaster )
 
 import Graphics.X11.ExtraTypes.XF86
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 import qualified Data.ByteString as B
-import Control.Monad (liftM2)
+import Control.Monad ( liftM2 )
 import qualified DBus as D
 import qualified DBus.Client as D
 
@@ -132,24 +132,24 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_h), spawn $ "urxvtc 'htop task manager' -e htop" )
   , ((modMask, xK_m), spawn $ "pragha" )
   , ((modMask, xK_r), spawn $ "rofi-theme-selector" )
-  , ((modMask, xK_t), spawn $ "urxvtc" )
+  , ((modMask, xK_t), spawn $ "kitty" )
   , ((modMask, xK_v), spawn $ "pavucontrol" )
   , ((modMask, xK_w), kill )
   , ((modMask, xK_y), spawn $ "polybar-msg cmd toggle" )
   , ((modMask, xK_Escape), spawn $ "xkill" )
   , ((modMask, xK_Return), spawn $ "st" )
-  , ((modMask, xK_F1), spawn $ "brave-browser" )
-  , ((modMask, xK_F2), spawn $ "emacs" )
-  , ((modMask, xK_F3), spawn $ "inkscape" )
-  , ((modMask, xK_F4), spawn $ "gimp" )
-  , ((modMask, xK_F5), spawn $ "meld" )
-  , ((modMask, xK_F6), spawn $ "vlc --video-on-top" )
-  , ((modMask, xK_F7), spawn $ "virtualbox" )
-  , ((modMask, xK_F8), spawn $ "thunar" )
-  , ((modMask, xK_F9), spawn $ "evolution" )
-  , ((modMask, xK_F10), spawn $ "spotify" )
-  , ((modMask, xK_F11), spawn $ "rofi -theme-str 'window {width: 100%;height: 100%;}' -show drun" )
-  , ((modMask, xK_F12), spawn $ "rofi -show run" )
+  -- , ((modMask, xK_F1), spawn $ "brave-browser" )
+  -- , ((modMask, xK_F2), spawn $ "emacs" )
+  -- , ((modMask, xK_F3), spawn $ "inkscape" )
+  -- , ((modMask, xK_F4), spawn $ "gimp" )
+  -- , ((modMask, xK_F5), spawn $ "meld" )
+  -- , ((modMask, xK_F6), spawn $ "vlc --video-on-top" )
+  -- , ((modMask, xK_F7), spawn $ "virtualbox" )
+  -- , ((modMask, xK_F8), spawn $ "thunar" )
+  -- , ((modMask, xK_F9), spawn $ "evolution" )
+  -- , ((modMask, xK_F10), spawn $ "spotify" )
+  -- , ((modMask, xK_F11), spawn $ "rofi -theme-str 'window {width: 100%;height: 100%;}' -show drun" )
+  -- , ((modMask, xK_F12), spawn $ "rofi -show run" )
 
   -- FUNCTION KEYS
   , ((0, xK_F12), spawn $ "xfce4-terminal --drop-down" )
@@ -164,35 +164,35 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- CONTROL + ALT KEYS
 
-  -- , ((controlMask .|. mod1Mask , xK_Next ), spawn $ "conky-rotate -n")
-  -- , ((controlMask .|. mod1Mask , xK_Prior ), spawn $ "conky-rotate -p")
-  -- , ((controlMask .|. mod1Mask , xK_a ), spawn $ "xfce4-appfinder")
-  -- , ((controlMask .|. mod1Mask , xK_b ), spawn $ "thunar")
-  -- , ((controlMask .|. mod1Mask , xK_c ), spawn $ "catfish")
-  -- , ((controlMask .|. mod1Mask , xK_e ), spawn $ "archlinux-tweak-tool")
-  -- , ((controlMask .|. mod1Mask , xK_f ), spawn $ "firefox")
+  , ((controlMask .|. mod1Mask , xK_Next ), spawn $ "conky-rotate -n")
+  , ((controlMask .|. mod1Mask , xK_Prior ), spawn $ "conky-rotate -p")
+  , ((controlMask .|. mod1Mask , xK_a ), spawn $ "xfce4-appfinder")
+  , ((controlMask .|. mod1Mask , xK_b ), spawn $ "brave-browser")
+  , ((controlMask .|. mod1Mask , xK_c ), spawn $ "catfish")
+  , ((controlMask .|. mod1Mask , xK_e ), spawn $ "nvim")
+  , ((controlMask .|. mod1Mask , xK_f ), spawn $ "firefox")
   -- , ((controlMask .|. mod1Mask , xK_g ), spawn $ "chromium -no-default-browser-check")
   -- , ((controlMask .|. mod1Mask , xK_i ), spawn $ "nitrogen")
   -- , ((controlMask .|. mod1Mask , xK_k ), spawn $ "archlinux-logout")
   -- , ((controlMask .|. mod1Mask , xK_l ), spawn $ "archlinux-logout")
-  -- , ((controlMask .|. mod1Mask , xK_m ), spawn $ "xfce4-settings-manager")
-  -- , ((controlMask .|. mod1Mask , xK_o ), spawn $ "$HOME/.xmonad/scripts/picom-toggle.sh")
+  , ((controlMask .|. mod1Mask , xK_m ), spawn $ "/usr/local/src/thunderbird/thunderbird")
+  , ((controlMask .|. mod1Mask , xK_o ), spawn $ "$HOME/.xmonad/scripts/picom-toggle.sh")
   -- , ((controlMask .|. mod1Mask , xK_p ), spawn $ "pamac-manager")
   -- , ((controlMask .|. mod1Mask , xK_r ), spawn $ "rofi-theme-selector")
-  -- , ((controlMask .|. mod1Mask , xK_s ), spawn $ "spotify")
-  -- , ((controlMask .|. mod1Mask , xK_t ), spawn $ "alacritty")
+  , ((controlMask .|. mod1Mask , xK_s ), spawn $ "/usr/local/src/sublime_text/sublime_text")
+  , ((controlMask .|. mod1Mask , xK_t ), spawn $ "terminator")
   -- , ((controlMask .|. mod1Mask , xK_u ), spawn $ "pavucontrol")
   -- , ((controlMask .|. mod1Mask , xK_v ), spawn $ "vivaldi-stable")
-  -- , ((controlMask .|. mod1Mask , xK_w ), spawn $ "arcolinux-welcome-app")
+  , ((controlMask .|. mod1Mask , xK_w ), spawn $ "/usr/local/src/waterfox/waterfox-bin")
   -- , ((controlMask .|. mod1Mask , xK_Return ), spawn $ "alacritty")
 
   -- ALT + ... KEYS
 
-  -- , ((mod1Mask, xK_f), spawn $ "variety -f" )
-  -- , ((mod1Mask, xK_n), spawn $ "variety -n" )
-  -- , ((mod1Mask, xK_p), spawn $ "variety -p" )
-  -- , ((mod1Mask, xK_r), spawn $ "xmonad --restart" )
-  -- , ((mod1Mask, xK_t), spawn $ "variety -t" )
+  , ((mod1Mask, xK_f), spawn $ "thunar" )
+  , ((mod1Mask, xK_n), spawn $ "nitrogen" )
+  , ((mod1Mask, xK_p), spawn $ "pcmanfm" )
+  , ((mod1Mask, xK_r), spawn $ "rofi -show run" )
+  , ((mod1Mask, xK_t), spawn $ "urxvtc" )
   -- , ((mod1Mask, xK_Up), spawn $ "variety --pause" )
   -- , ((mod1Mask, xK_Down), spawn $ "variety --resume" )
   -- , ((mod1Mask, xK_Left), spawn $ "variety -p" )
