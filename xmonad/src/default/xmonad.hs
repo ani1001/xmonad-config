@@ -29,8 +29,8 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 
 import XMonad.Util.Cursor
-import XMonad.Util.EZConfig (additionalKeys)
-import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.EZConfig ( additionalKeys )
+import XMonad.Util.Run ( spawnPipe )
 import XMonad.Util.SpawnOnce
 
 -- The preferred terminal program, which is used in a binding below and by
@@ -205,7 +205,7 @@ myLayout =
   ||| Mirror tiled
   ||| Full
   ||| Grid
-  ||| spiral(6/7)
+  ||| spiral ( 6 / 7 )
   ||| threeCol
   ||| noBorders (tabbed shrinkText def)
   ||| Accordion

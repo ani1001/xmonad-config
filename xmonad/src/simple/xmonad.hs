@@ -22,8 +22,8 @@ import XMonad.Layout.ThreeColumns
 
 -- Utilities
 import XMonad.Util.Cursor
-import XMonad.Util.EZConfig (additionalKeys)
-import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.EZConfig ( additionalKeys )
+import XMonad.Util.Run ( spawnPipe )
 import XMonad.Util.SpawnOnce
 
 myModMask            = mod4Mask
@@ -51,7 +51,7 @@ myLayout =
   ||| Mirror tiled
   ||| Full
   ||| Grid
-  ||| spiral(6/7)
+  ||| spiral ( 6 / 7 )
   ||| threeCol
   ||| noBorders (tabbed shrinkText def)
   ||| Accordion
@@ -82,7 +82,7 @@ myKeys = [ ((myModMask, xK_b), sendMessage ToggleStruts)
          , ((0, xK_Print), spawn "scrot")
          ]
 
--- Now run xmonad...
+-- Now run xmonad with all the defaults available
 main :: IO ()
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc1"

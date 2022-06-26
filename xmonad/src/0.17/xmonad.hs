@@ -106,9 +106,11 @@ myConfig = def
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
-    spawnOnce "picom &"
+    spawnOnce "picom -b &"
     spawnOnce "lxpolkit &"
+    spawnOnce "mpd &"
     spawnOnce "urxvtd -q -o -f &"
+    spawnOnce "emacs --daemon &"
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
@@ -139,7 +141,7 @@ myLayout =
   ||| Full
   ||| emptyBSP
   ||| Grid
-  ||| spiral(6/7)
+  ||| spiral ( 6 / 7 )
   ||| twopane
   ||| Mirror twopane
   ||| threeCol
