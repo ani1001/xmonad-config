@@ -3,13 +3,6 @@
 
 -- Base
 import XMonad hiding ( (|||) )
-import System.IO ( hPutStrLn )
-import System.Exit ( exitSuccess )
-import qualified XMonad.StackSet as W
-
--- Data
-import Data.Monoid
-import qualified Data.Map        as M
 
 -- Hooks
 import XMonad.Hooks.DynamicLog
@@ -30,7 +23,6 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
 
 -- Layouts modifiers
-import XMonad.Layout hiding ( (|||) )
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Magnifier
 import XMonad.Layout.NoBorders
