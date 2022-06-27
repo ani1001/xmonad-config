@@ -80,10 +80,10 @@ xmobarEscape = concatMap doubleLts
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape)
-             $ ["1:web","2:irc","3:mail","4:dev","5:gfx","6:media","7:vbox","8:dir","9:down","0:tmp"]
+             $ ["1:web","2:irc","3:mail","4:dev","5:gfx","6:media","7:vbox","8:dir","9:down"]
   where
     clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
-                  (i,ws) <- zip [1, 2, 3, 4, 5, 6, 7, 8, 9, 0] l,
+                  (i,ws) <- zip [1..9] l,
                   let n = i ]
 
 -- Startup hook
@@ -136,7 +136,6 @@ myManageHook = composeAll . concat $
     , [className =? c --> doShift (myWorkspaces !! 6) <+> viewShift (myWorkspaces !! 6) | c <- my7Shifts]
     , [className =? c --> doShift (myWorkspaces !! 7) <+> viewShift (myWorkspaces !! 7) | c <- my8Shifts]
     , [className =? c --> doShift (myWorkspaces !! 8) <+> viewShift (myWorkspaces !! 8) | c <- my9Shifts]
-    , [className =? c --> doShift (myWorkspaces !! 9) <+> viewShift (myWorkspaces !! 9) | c <- my10Shifts]
     ]
     
     where
@@ -154,7 +153,6 @@ myManageHook = composeAll . concat $
     my7Shifts  = ["Virtualbox"]
     my8Shifts  = ["Thunar"]
     my9Shifts  = ["Transmission-gtk", "Uget-gtk"]
-    my10Shifts = ["discord"]
                  
 -- Status bars and logging
 myLogHook :: X ()
