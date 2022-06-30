@@ -4,7 +4,7 @@
 -- Base
 import XMonad hiding ( (|||) )
 import System.IO ( hPutStrLn )
-import System.Exit ( exitSuccess )
+import System.Exit
 import qualified XMonad.StackSet as W
 
 -- Data
@@ -54,7 +54,7 @@ myModMask = mod4Mask
 
 -- Sets default terminal
 myTerminal :: String
-myTerminal = "urxvt"
+myTerminal = "st"
 
 -- Color of focused border
 myFocusedBorderColor :: String
@@ -80,7 +80,7 @@ xmobarEscape = concatMap doubleLts
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape)
-             $ ["1:web","2:irc","3:mail","4:dev","5:gfx","6:media","7:vbox","8:dir","9:down"]
+             $ ["1:web","2:irc","3:mail","4:dev","5:gfx","6:media","7:term","8:dir","9:tmp"]
   where
     clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                   (i,ws) <- zip [1..9] l,
@@ -111,7 +111,6 @@ myLayout =
   ||| threeCol
   ||| noBorders (tabbed shrinkText def)
   ||| Accordion
-  
   where
     threeCol = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
     twopane  = TwoPane delta ratio
@@ -137,7 +136,6 @@ myManageHook = composeAll . concat $
     , [className =? c --> doShift (myWorkspaces !! 7) <+> viewShift (myWorkspaces !! 7) | c <- my8Shifts]
     , [className =? c --> doShift (myWorkspaces !! 8) <+> viewShift (myWorkspaces !! 8) | c <- my9Shifts]
     ]
-    
     where
     viewShift  = doF . liftM2 (.) W.greedyView W.shift
     myCFloats  = ["Galculator", "feh", "mpv", "Xfce4-terminal"]
@@ -147,13 +145,13 @@ myManageHook = composeAll . concat $
     my1Shifts  = ["Brave-browser", "Chromium", "Vivaldi-stable", "Firefox-esr"]
     my2Shifts  = ["Hexchat"]
     my3Shifts  = ["Mail", "Thunderbird"]
-    my4Shifts  = ["Emacs", "Geany"]
-    my5Shifts  = ["Gimp", "Inkscape", "feh"]
+    my4Shifts  = ["Emacs", "Geany", "Sublime_text"]
+    my5Shifts  = ["Gimp", "feh", "Inkscape", "Ristretto"]
     my6Shifts  = ["vlc", "mpv"]
-    my7Shifts  = ["Virtualbox"]
-    my8Shifts  = ["Thunar"]
+    my7Shifts  = ["kitty", "st-256color", "Terminator", "URxvt"]
+    my8Shifts  = ["Thunar", "nemo", "caja", "pcmanfm"]
     my9Shifts  = ["Transmission-gtk", "Uget-gtk"]
-                 
+
 -- Status bars and logging
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
@@ -161,22 +159,22 @@ myLogHook = fadeInactiveLogHook fadeAmount
 
 -- Key bindings
 myKeys :: [(String, X ())]
-myKeys = [ ("M-<Return>"   , spawn "urxvtc"                                   )
+myKeys = [ ("M-<Return>"   , spawn "st"                                       )
          , ("M-S-<Return>" , spawn "thunar"                                   )
-         , ("M-S-t"        , spawn "st"                                       )
-         , ("M-S-p"        , spawn "rofi -show run"                           )
+         , ("M-S-t"        , spawn "urxvtc"                                   )
          , ("M-]"          , spawn "firefox-esr"                              )
-         , ("M-S-z"        , spawn "slock"                                    )
          , ("M-S-="        , unGrab *> spawn "scrot -s"                       )
          , ("M-C-f"        , sendMessage $ JumpToLayout "Full"                )
+         , ("M-C-l"        , spawn "slock"                                    )
+         , ("M-C-q"        , io ( exitWith ExitSuccess )                      )
          , ("M-C-r"        , spawn $ "xmonad --recompile && xmonad --restart" )
          , ("M-w"          , kill                                             )
-         , ("M-S-x"        , io exitSuccess                                   )
          , ("M1-d"         , spawn "dmenu_run"                                )
          , ("M1-e"         , spawn "emacsclient -c -a 'emacs'"                )
          , ("M1-f"         , spawn "thunar"                                   )
          , ("M1-g"         , spawn "geany"                                    )
          , ("M1-n"         , spawn "nitrogen"                                 )
+         , ("M1-r"         , spawn "rofi -show run"                           )
          , ("M1-t"         , spawn "transmission-gtk"                         )
          , ("M1-u"         , spawn "uget-gtk"                                 )
          , ("M1-v"         , spawn "pavucontrol"                              )
@@ -189,7 +187,7 @@ myKeys = [ ("M-<Return>"   , spawn "urxvtc"                                   )
 -- Now run xmonad with all the defaults available
 main :: IO ()
 main = do
-    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc1"
+    xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/xmobarrc.hs"
     xmonad . ewmh . docks $ def
         { manageHook  = myManageHook <+> manageHook def
         , layoutHook  = smartBorders . avoidStruts $ myLayout
@@ -200,32 +198,37 @@ main = do
                             , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]     -- order of things in xmobar
                             }
         , modMask            = myModMask
+        , focusFollowsMouse  = myFocusFollowsMouse
+        , clickJustFocuses   = myClickJustFocuses
         , focusedBorderColor = myFocusedBorderColor
         , normalBorderColor  = myNormalBorderColor
         , borderWidth        = myBorderWidth
         , terminal           = myTerminal
         , workspaces         = myWorkspaces
-        } 
-        
+        }
+
         `removeKeysP`
-       
+
         [
-       
-        -- unused gmrun binding
-        "M-S-p",
-       
+
         -- unused close window binding
         "M-S-c",
-       
+
         -- unused terminal binding
         "M-S-<Return>",
-        
+
+        -- unused gmrun binding
+        "M-S-p",
+
         -- unused exit Xmonad binding
         "M-S-q",
-        
+
         -- unused dmenu binding
-        "M-p"
-       
+        "M-p",
+
+        -- unused restart Xmonad binding
+        "M-q"
+
         ]
-        
+
         `additionalKeysP` myKeys
