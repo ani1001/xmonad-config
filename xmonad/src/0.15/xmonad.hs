@@ -72,10 +72,6 @@ myBorderWidth = 1
 myFont :: String
 myFont = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
 
--- Counts the number of window
-windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
-
 -- Workspaces
 xmobarEscape = concatMap doubleLts
   where
@@ -94,7 +90,7 @@ myWorkspaces = clickable . (map xmobarEscape)
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "nitrogen --restore &"
-    spawnOnce "picom -b &"
+    spawnOnce "picom &"
     spawnOnce "lxpolkit &"
     spawnOnce "mpd &"
     spawnOnce "urxvtd -q -o -f &"
@@ -198,10 +194,8 @@ main = do
         , startupHook = myStartupHook
         , logHook     = myLogHook <+> dynamicLogWithPP xmobarPP
                             { ppOutput = hPutStrLn xmproc0
-                            , ppTitle  = xmobarColor "green" "" . shorten 35             -- Title of active window
-                            , ppSep    =  "<fc=" ++ "magenta" ++ "> <fn=1>|</fn> </fc>"  -- Separator character
-                            , ppExtras = [windowCount]                                   -- Adding # of windows on current workspace to the bar
-                            , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]                 -- order of things in xmobar
+                            , ppTitle  = xmobarColor "green" "" . shorten 50 -- Title of active window
+                            , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]     -- order of things in xmobar
                             }
         , modMask            = myModMask
         , focusFollowsMouse  = myFocusFollowsMouse
@@ -238,4 +232,3 @@ main = do
         ]
 
         `additionalKeysP` myKeys
-
