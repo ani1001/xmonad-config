@@ -4,13 +4,12 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Util.Cursor
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Actions.SpawnOn
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Run ( spawnPipe )
+import XMonad.Util.EZConfig ( additionalKeys )
 import System.IO
 
 myStartupHook = do
-    spawn "$HOME/.xmonad/autostart.sh"
+    spawn "$HOME/.config/xmonad/autostart.sh"
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 

@@ -37,7 +37,6 @@ import XMonad.Layout.ResizableTile
 import XMonad.Util.Cursor
 import XMonad.Util.EZConfig ( additionalKeysP, removeKeysP )
 import XMonad.Util.Run ( spawnPipe )
-import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
 -- Whether focus follows the mouse pointer
@@ -54,7 +53,7 @@ myModMask = mod4Mask
 
 -- Sets default terminal
 myTerminal :: String
-myTerminal = "st"
+myTerminal = "alacritty"
 
 -- Color of focused border
 myFocusedBorderColor :: String
@@ -89,12 +88,7 @@ myWorkspaces = clickable . (map xmobarEscape)
 -- Startup hook
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "nitrogen --restore &"
-    spawnOnce "picom &"
-    spawnOnce "lxpolkit &"
-    spawnOnce "mpd &"
-    spawnOnce "urxvtd -q -o -f &"
-    spawnOnce "emacs --daemon &"
+    spawn "$HOME/.config/xmonad/autostart.sh"
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
@@ -159,7 +153,7 @@ myLogHook = fadeInactiveLogHook fadeAmount
 
 -- Key bindings
 myKeys :: [(String, X ())]
-myKeys = [ ("M-<Return>"   , spawn "st"                                       )
+myKeys = [ ("M-<Return>"   , spawn "alacritty"                                )
          , ("M-S-<Return>" , spawn "thunar"                                   )
          , ("M-S-t"        , spawn "urxvtc"                                   )
          , ("M-]"          , spawn "firefox-esr"                              )

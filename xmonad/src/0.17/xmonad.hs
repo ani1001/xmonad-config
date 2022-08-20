@@ -39,7 +39,6 @@ import XMonad.Util.Cursor
 import XMonad.Util.EZConfig ( additionalKeysP, removeKeysP )
 import XMonad.Util.Loggers
 import XMonad.Util.Run ( spawnPipe )
-import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
 -- Whether focus follows the mouse pointer
@@ -56,7 +55,7 @@ myModMask = mod4Mask
 
 -- Sets default terminal
 myTerminal :: String
-myTerminal = "st"
+myTerminal = "alacritty"
 
 -- Color of focused border
 myFocusedBorderColor :: String
@@ -130,12 +129,7 @@ myConfig = def
 -- Startup hook
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "nitrogen --restore &"
-    spawnOnce "picom -b &"
-    spawnOnce "lxpolkit &"
-    spawnOnce "mpd &"
-    spawnOnce "urxvtd -q -o -f &"
-    spawnOnce "emacs --daemon &"
+    spawn "$HOME/.config/xmonad/autostart.sh"
     setWMName "LG3D"
     setDefaultCursor xC_left_ptr
 
@@ -174,7 +168,7 @@ myManageHook = composeAll . concat $
 
 -- Key bindings
 myKeys :: [(String, X ())]
-myKeys = [ ("M-<Return>"   , spawn "st"                                       )
+myKeys = [ ("M-<Return>"   , spawn "alacritty"                                )
          , ("M-S-<Return>" , spawn "thunar"                                   )
          , ("M-S-t"        , spawn "urxvtc"                                   )
          , ("M-]"          , spawn "firefox-esr"                              )
@@ -227,7 +221,7 @@ myXmobarPP = def
     , ppTitleSanitize   = xmobarStrip
     , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#8be9fd" 2
     , ppHidden          = white . wrap " " ""
-    , ppHiddenNoWindows = lowWhite . wrap " " ""
+    --, ppHiddenNoWindows = lowWhite . wrap " " ""
     , ppUrgent          = red . wrap (yellow "!") (yellow "!")
     , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
     , ppExtras          = [logTitles formatFocused formatUnfocused]
