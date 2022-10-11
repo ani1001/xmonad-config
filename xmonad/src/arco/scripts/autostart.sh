@@ -23,7 +23,7 @@ function run {
 #setxkbmap -layout be
 
 #cursor active at boot
-xsetroot -cursor_name left_ptr &
+#xsetroot -cursor_name left_ptr &
 
 #start ArcoLinux Welcome App
 #run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop
@@ -61,10 +61,10 @@ xsetroot -cursor_name left_ptr &
 #run ckb-next -b &
 
 run nitrogen --restore &
-run picom &
+run picom -b &
 run lxpolkit &
 run nm-applet &
 #run volumeicon &
-run mpd &
+#run mpd &
 run urxvtd -q -o -f &
 run emacs -daemon &
